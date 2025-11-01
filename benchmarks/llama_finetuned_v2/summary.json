@@ -1,0 +1,10 @@
+{
+  "model": "Llama3.1:8B Fine-tuned (v2)",
+  "base_model": "meta-llama/Meta-Llama-3.1-8B-Instruct",
+  "lora_model": "./models/llama-click-lora-v2/final",
+  "total_samples": 42,
+  "correct": 12,
+  "incorrect": 30,
+  "accuracy": 28.57142857142857,
+  "timestamp": "2025-11-01 18:02:52"
+}
