@@ -1,0 +1,27 @@
+﻿file_path,category,subcategory,topic,source,num_samples
+Dataset/Culture/Korean Economy/Economy_KIIP.json,Culture,Korean Economy,Economy,KIIP,57
+Dataset/Culture/Korean Economy/Economy_Kedu.json,Culture,Korean Economy,Economy,Kedu,2
+Dataset/Culture/Korean Geography/Geography_CSAT.json,Culture,Korean Geography,Geography,CSAT,30
+Dataset/Culture/Korean Geography/Geography_KIIP.json,Culture,Korean Geography,Geography,KIIP,92
+Dataset/Culture/Korean Geography/Geography_Kedu.json,Culture,Korean Geography,Geography,Kedu,9
+Dataset/Culture/Korean History/History_KHB.json,Culture,Korean History,History,KHB,47
+Dataset/Culture/Korean History/History_Kedu.json,Culture,Korean History,History,Kedu,44
+Dataset/Culture/Korean History/History_PSE.json,Culture,Korean History,History,PSE,189
+Dataset/Culture/Korean Law/Law_KIIP.json,Culture,Korean Law,Law,KIIP,51
+Dataset/Culture/Korean Law/Law_PSAT.json,Culture,Korean Law,Law,PSAT,168
+Dataset/Culture/Korean Politics/Politics_KIIP.json,Culture,Korean Politics,Politics,KIIP,79
+Dataset/Culture/Korean Politics/Politics_Kedu.json,Culture,Korean Politics,Politics,Kedu,5
+Dataset/Culture/Korean Popular/Popular_KIIP.json,Culture,Korean Popular,Popular,KIIP,26
+Dataset/Culture/Korean Popular/Popular_Kedu.json,Culture,Korean Popular,Popular,Kedu,15
+Dataset/Culture/Korean Society/Society_KIIP.json,Culture,Korean Society,Society,KIIP,284
+Dataset/Culture/Korean Society/Society_Kedu.json,Culture,Korean Society,Society,Kedu,25
+Dataset/Culture/Korean Tradition/Tradition_KIIP.json,Culture,Korean Tradition,Tradition,KIIP,161
+Dataset/Culture/Korean Tradition/Tradition_Kedu.json,Culture,Korean Tradition,Tradition,Kedu,61
+Dataset/Language/Functional/Functional_CSAT.json,Language,Functional,Functional,CSAT,112
+Dataset/Language/Functional/Functional_Kedu.json,Language,Functional,Functional,Kedu,7
+Dataset/Language/Functional/Functional_PSE.json,Language,Functional,Functional,PSE,14
+Dataset/Language/Grammar/Grammar_CSAT.json,Language,Grammar,Grammar,CSAT,46
+Dataset/Language/Grammar/Grammar_Kedu.json,Language,Grammar,Grammar,Kedu,166
+Dataset/Language/Grammar/Grammar_TOPIK.json,Language,Grammar,Grammar,TOPIK,20
+Dataset/Language/Textual/Textual_CSAT.json,Language,Textual,Textual,CSAT,68
+Dataset/Language/Textual/Textual_TOPIK.json,Language,Textual,Textual,TOPIK,217

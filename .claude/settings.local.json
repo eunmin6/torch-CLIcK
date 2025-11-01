@@ -1,0 +1,17 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(python:*)",
+      "Bash(pip install:*)",
+      "Bash(timeout /t 30)",
+      "Bash(pip uninstall:*)",
+      "Bash(nvidia-smi:*)",
+      "Bash(tee:*)",
+      "Bash(awk:*)",
+      "Bash(git init:*)",
+      "Bash(git add:*)"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}

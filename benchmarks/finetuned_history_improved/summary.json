@@ -1,0 +1,15 @@
+{
+  "total_samples": 42,
+  "correct": 17,
+  "incorrect": 25,
+  "accuracy": 40.476190476190474,
+  "extraction_stats": {
+    "pattern_match": 0,
+    "first_digit": 0,
+    "first_number": 40,
+    "text_match": 2,
+    "partial_match": 0,
+    "extraction_failed": 0
+  },
+  "timestamp": "2025-10-31 10:19:12"
+}
