@@ -9,7 +9,16 @@
       "Bash(tee:*)",
       "Bash(awk:*)",
       "Bash(git init:*)",
-      "Bash(git add:*)"
+      "Bash(git add:*)",
+      "Bash(git commit:*)",
+      "Bash(git config:*)",
+      "Bash(git branch:*)",
+      "Bash(git remote add:*)",
+      "Bash(git push:*)",
+      "Bash(git pull:*)",
+      "Bash(git checkout:*)",
+      "Bash(huggingface-cli login:*)",
+      "Bash(git mv:*)"
     ],
     "deny": [],
     "ask": []
