@@ -1,8 +1,0 @@
-{
-  "total_samples": 42,
-  "correct": 12,
-  "incorrect": 30,
-  "accuracy": 28.57142857142857,
-  "timestamp": "2025-11-01 15:28:16",
-  "checkpoint": "checkpoint-700 (약 Epoch 6)"
-}
