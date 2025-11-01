@@ -215,7 +215,7 @@ Korean History만: 42개 (테스트 세트)
 - **모델**: Qwen/Qwen2.5-7B-Instruct
 - **Fine-tuning**: PEFT (LoRA)
 - **프레임워크**: PyTorch, Transformers, PEFT
-- **하드웨어**: NVIDIA RTX 4090 24GB
+- **하드웨어**: NVIDIA RTX 3090 24GB
 - **데이터셋**: CLIcK (Korean History subset)
 
 ## 제한사항
