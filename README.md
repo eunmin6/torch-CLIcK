@@ -49,6 +49,185 @@ ollama run my-custom-model
 
 #### 방법 2: LoRA 어댑터 병합 후 변환
 
+<<<<<<< HEAD
+=======
+```bash
+python create_splits.py
+```
+
+데이터셋이 `data/splits/`에 생성됩니다:
+- train.json: 1,407개 샘플
+- val.json: 302개 샘플
+- test.json: 303개 샘플
+
+### 3. 모델 학습
+
+```bash
+python finetune_lora_improved.py
+```
+
+학습된 모델은 `models/qwen-click-lora-v2/final/`에 저장됩니다.
+
+### 4. 모델 평가
+
+```bash
+python evaluate_v2_history.py
+```
+
+평가 결과는 `benchmarks/finetuned_v2_history/`에 저장됩니다.
+
+## 모델 성능 분석
+
+### v2 모델: 52.38% (최고 성능)
+
+**강점**:
+- ✅ 안정적인 학습 (Train-Val Gap: ~0.07)
+- ✅ 완벽한 결정론적 모델 (평가 편차 0%)
+- ✅ 효율적인 학습 시간 (86분)
+
+**설정**:
+- Epochs: 3
+- Learning Rate: 2e-4
+- 과적합 없음
+
+상세 분석: [v2-variance-report.md](docs/v2-variance-report.md)
+
+### v3 모델: 28.57% (실패 사례)
+
+**문제점**:
+- ❌ 심각한 과적합 (Train-Val Gap: 0.71)
+- ❌ Validation Loss 증가 (0.75 → 0.85)
+- ❌ v2 대비 -23.81%p 성능 하락
+
+**원인**:
+- Epochs 과다 (10 epochs)
+- 최적 중단 시점 놓침 (Epoch 5.69)
+- 작은 데이터셋 (1,407개) × 10 반복
+
+상세 분석: [v3-analysis-report.md](docs/v3-analysis-report.md)
+
+## 핵심 발견사항
+
+### 1. Train Loss vs Validation Loss
+
+과적합을 방지하려면 **Validation Loss 모니터링**이 필수입니다:
+
+```
+좋은 학습 (v2):
+Epoch 1: Train Loss 1.20 | Val Loss 1.15 (Gap: 0.05)
+Epoch 2: Train Loss 0.95 | Val Loss 0.90 (Gap: 0.05) ✓
+Epoch 3: Train Loss 0.75 | Val Loss 0.68 (Gap: 0.07) ✓
+
+나쁜 학습 (v3):
+Epoch 5:  Train Loss 0.75 | Val Loss 0.75 (Gap: 0.00) ✓ 최적점
+Epoch 7:  Train Loss 0.50 | Val Loss 0.81 (Gap: 0.31) ⚠️
+Epoch 10: Train Loss 0.14 | Val Loss 0.85 (Gap: 0.71) ✗ 과적합
+```
+
+상세 설명: [ai-background.md](docs/ai-background.md)
+
+### 2. 평가 안정성
+
+v2 모델은 **완벽한 결정론적 모델**입니다:
+- 재평가 시 100% 동일한 결과 (52.38%)
+- `do_sample=False` 설정으로 재현 가능
+- 평가 편차: 0.00%p
+
+### 3. Epoch과 Learning Rate의 균형
+
+| 설정 | Epochs | LR | 결과 |
+|------|--------|----|----|
+| v1 | 3 | 2e-4 | 50.00% |
+| **v2** | **3** | **2e-4** | **52.38%** ✓ |
+| v3 | 10 | 1e-4 | 28.57% (과적합) |
+
+**교훈**: More Epochs ≠ Better Performance
+
+## 문서
+
+프로젝트의 모든 분석 문서는 `docs/` 폴더에 있습니다:
+
+- **[ai-background.md](docs/ai-background.md)**: Epoch, Learning Rate, Train/Val Loss 개념 설명
+- **[v2-variance-report.md](docs/v2-variance-report.md)**: v2 모델 평가 안정성 분석 (편차 0%)
+- **[v3-analysis-report.md](docs/v3-analysis-report.md)**: v3 모델 과적합 실패 사례 분석
+- **[baseline-report.md](docs/baseline-report.md)**: Baseline 모델 평가 리포트
+- **[finetune-report.md](docs/finetune-report.md)**: Fine-tuning 결과 종합 리포트
+- **[model-evolution-report.md](docs/model-evolution-report.md)**: 모델 발전 과정 정리
+
+## 실험 결과 요약
+
+### 데이터셋 통계
+
+```
+전체: 2,012개 샘플
+- 학습: 1,407개 (70%)
+- 검증: 302개 (15%)
+- 테스트: 303개 (15%)
+
+Korean History만: 42개 (테스트 세트)
+```
+
+### 모델 비교
+
+| 모델 | Epochs | LR | 학습시간 | 정확도 | Train-Val Gap | 상태 |
+|------|--------|-------|---------|--------|---------------|------|
+| Baseline | - | - | - | 14.29% | - | - |
+| v1 | 3 | 2e-4 | ~86분 | 50.00% | ~0.05 | ✓ |
+| **v2** | **3** | **2e-4** | **~86분** | **52.38%** | **~0.07** | **✓ 최고** |
+| v3 | 10 | 1e-4 | ~287분 | 28.57% | 0.71 | ✗ 과적합 |
+
+## 기술 스택
+
+- **모델**: Qwen/Qwen2.5-7B-Instruct
+- **Fine-tuning**: PEFT (LoRA)
+- **프레임워크**: PyTorch, Transformers, PEFT
+- **하드웨어**: NVIDIA RTX 3090 24GB
+- **데이터셋**: CLIcK (Korean History subset)
+
+## 제한사항
+
+### Git 저장소에 포함되지 않은 파일
+
+- `models/` 폴더 (4.7GB)
+  - LoRA 어댑터 파일들
+  - Git에서 제외 (.gitignore)
+  - 필요시 별도 공유 필요
+
+### 학습 데이터 크기
+
+- Korean History: 42개 샘플 (테스트)
+- 전체 학습 데이터: 1,407개 샘플
+- 작은 데이터셋으로 인해 과적합 위험 높음
+
+## 성능 개선 전략
+
+현재 v2 모델의 52.38% 정확도를 개선하기 위한 체계적인 접근 방법입니다.
+
+### 1. 데이터 관점 (가장 높은 영향력 ⭐⭐⭐⭐⭐)
+
+#### 데이터 양 증가
+```
+현재 상황:
+- 학습 데이터: 1,407개
+- 테스트 데이터: 42개 (통계적으로 매우 작음)
+
+개선 목표:
+- 5,000-10,000개 학습 데이터 확보
+- 더 많은 Korean History 문제 수집
+- 데이터 증강 (질문 패러프레이징)
+
+예상 효과: +5-10%p
+```
+
+#### 데이터 품질 개선
+- 질문 표현 일관성 확보
+- 오답 선택지 품질 개선
+- 난이도 분포 균형화
+
+### 2. 프롬프트 엔지니어링 (빠른 개선 ⭐⭐⭐)
+
+#### Few-shot Learning 적용
+>>>>>>> 06dc0681a28decfcfb80fa7a8c70803209ad8a97
 ```python
 # merge_lora.py
 from transformers import AutoModelForCausalLM, AutoTokenizer
